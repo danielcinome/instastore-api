@@ -1,10 +1,9 @@
-const express = require('express');
+const express = require("express");
 
 // Module to create an application in Express
 // receiving the dependencies externally.
 
 async function createExpressApp(routers) {
-
   let app = express();
 
   app.use(express.json());
@@ -22,7 +21,6 @@ async function createExpressApp(routers) {
   });
 
   return app;
-
 }
 
-module.exports = createExpressApp
+module.exports = createExpressApp;
