@@ -1,0 +1,29 @@
+# Environment-specific configuration files and directories
+**/.env
+
+# Version control files and directories
+**/.git
+**/.gitignore
+
+# IDE/editor configuration files and directories
+**/.vscode
+**/.vs
+
+# Configuration files and directories of specific tools
+**/.dockerignore
+
+# Node.js files and directories
+**/node_modules
+**/npm-debug.log
+
+# Compilation directories and other binaries
+**/bin
+**/obj
+
+# Docker and Kubernetes specific configuration files
+**/Dockerfile*
+**/docker-compose*
+**/compose*
+
+# Documentation
+README.md

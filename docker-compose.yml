@@ -1,0 +1,55 @@
+version: '3'
+services:
+
+  # instastore-api block
+  instastore-api:
+
+    build: Docker/app/.
+
+    container_name: ${INSTASTORE_APP_NAME}
+
+    env_file: .env
+
+    environment:
+      - SEQUELIZE_HOST=${INSTASTORE_MYSQL_NAME}
+      - SEQUELIZE_DATABASE=${INSTASTORE_MYSQL_DATABASE}
+
+    command: ["./wait-for-it.sh", "${INSTASTORE_MYSQL_NAME}", "3306", "--", "npm", "run", "dev"]
+
+    ports:
+      - ${INSTASTORE_APP_PORT}:8080
+
+    depends_on:
+      - instastore-mysql
+
+    volumes:
+      - ./src:/app/src
+      - ./Docker:/Docker
+      - ./wait-for-it.sh:/app/wait-for-it.sh
+
+  # instastore database
+  instastore-mysql:
+
+    build: Docker/database/.
+
+    restart: always
+
+    container_name: ${INSTASTORE_MYSQL_NAME}
+
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: ${INSTASTORE_MYSQL_DATABASE}
+
+    volumes:
+      - ./Docker/database/script.sql:/docker-entrypoint-initdb.d/script.sql
+
+    ports:
+      - ${INSTASTORE_MYSQL_PORT}:3306
+
+    expose:
+      - 3306
+
+    command: --mysql-native-password=ON
+
+
+
